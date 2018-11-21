@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>GESTION DE ALUMNOS</title>
+        <link href="../css/ARIK14.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="../js/FuncionesEventos.js" type="text/javascript"></script>
+        <script src="../js/FuncionesGenerales.js" type="text/javascript"></script>
+    </head>
+    <body>
+
+
+        <div class="page">
+            <div class="content">
+                <h1>IKASTETXEAREN GESTIOA</h1>
+                <hr /> 
+
+                <section id="central">
+                    <aside class="vertical-menu">
+                        <a href="#" class="active">IKASLEAK</a>
+                        <a href="#" id="ikasleBerria">Añadir  </a>
+                        <a href="#" id="ikasleAldatu">Modificar</a>
+                        <a href="#" id="ikasleKendu">Borrar</a>
+                        <a href="#" class="active">KONTSULTAK</a>
+                        <a href="#" id="kontsultaIkasleak">Ikasleak</a>
+                    </aside>
+                    <div class="dcha">
+                        <div id="zonaIkasle">
+                            <label>ID</label><input type="text" id="ikasleId"  disabled><br>
+                            <label>NOMBRE</label><input type="text" id="ikasleNombre" class="valores">
+                            <select id="ikasleNombresTodos"></select><br>
+                            <label >EDAD</label><input type="text" id="ikasleEdad" class="valores">  <br>
+                            <label >CURSO</label><input type="text" id="ikasleCurso" class="valores">  <br>
+                           
+                            <input type="button" value="aceptar" id="ikasleGuardar">
+                            <input type="button" value="cancelar" id="ikasleCancelar">
+                            <br>
+
+                        </div>
+                        <div id="zonaConsulta">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

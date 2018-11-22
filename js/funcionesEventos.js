@@ -1,52 +1,61 @@
-//function funcionKontsultaIkasleak() {
-//    $ajax({
-//        type: 'GET',
-//        dataType: 'json',
-//        url: '../controlador/controlador_consulta_ikasleak.php',
-//        success: function (datos) {
-//            var tabla = "<table>";
-//            tabla += "<th class='id'>Id</th>\n\
-// <th class='nombre'>Noombre</th><th class='nombre'>Edad</th>";
-//        }
-//
-//    });
-//}
-
-
-
+function esconder() {
+    $('#ikasleNombresTodos').hide();
+    $('#zonaIkasle').hide();
+    $('#zonaConsulta').hide();
+}
 function funcionKontsultaIkasleak() {
-    alert("hola2");
-    $('#zonaConsulta').html(' ');
     $.ajax({
         type: 'POST',
         dstaType: 'json',
-        url: "../controlador/controlador_consulta_ikasleak.php",
+        url: '../controlador/controlador_consulta_ikasleak.php',
         success: function (datos) {
-            alert(datos);
+//            alert(datos);
+            datos = JSON.parse(datos);    //lo convertimos a objeto.
             var tabla = "<table>";
-            tabla += "<th class='id'>Registro</th>\n\
-               <th class='nombre'>Nombre</th><th class='nombre'>Edad</th>\n\
-               <th class='numerico'>Curso</th><th class='nombre'>Opciones</th>";
-            midato = JSON.parse(datos);
-
-            $.each(midato, function (i, dato) {
+            tabla += "<th class='id'>Id</th>";
+            tabla += "<th class='nombre'>Nombre</th>";
+            tabla += "<th class='nombre'>Edad</th>";
+            tabla += "<th class='numerico'>Curso</th>";
+            for (i in datos) {
                 tabla += "<tr>";
-                tabla += "<td class='id'>" + dato.id + "</td>";
-                tabla += "<td class='numerico'>" + dato.Nombre + "</td>";
-                tabla += "<td class='numerico'>" + dato.Edad + "</td>";
-                tabla += "<td class='numerico'>" + dato.Curso + "</td>";
-                tabla += "<td class='nombre'><input type='button' value='editar' class='editar' data-id='" + dato.id + "'>";
-                tabla += "<input type='button' value='borrar' class='borrar' data-id='" + dato.id + "'></td>";
+                tabla += "<td class='nombre'>" + datos[i].id + "</td>";
+                tabla += "<td class='nombre'>" + datos[i].Nombre + "</td>";
+                tabla += "<td class='numerico'>" + datos[i].Edad + "</td>";
+                tabla += "<td class='numerico'>" + datos[i].Curso + "</td>";
                 tabla += "</tr>";
-            });
+            }
+            ;
             tabla += "</table>";
-            alert(tabla);
+//            alert(tabla);
             $('#zonaConsulta').append(tabla).hide().fadeIn('slow');
-            return false;
         },
         error: function (xhr) {
             alert("An error occured: " + xhr.status + " " + xhr.statusText);
         }
     });
+}
+function funcionIkasleBerria() {
+
+    var nombre = $('#ikasleNombre').val();
+    var edad = $('#ikasleEdad').val();
+    var curso = $('#ikasleCurso').val();
+    var datosEnviar = {"nombre": nombre, "edad": edad, "curso": curso};
+    datosEnviar = JSON.stringify(datosEnviar);
+//    alert(datosEnviar);
+    $.ajax({
+        type: 'GET',
+        dstaType: 'json',
+        url: "../controlador/controlador_insertar_ikasle.php",
+        data: {"datosEnviados": datosEnviar},
+
+        success: function (datos) {
+            alert("Se ha insertado con exito");
+            alert(datos);
+        },
+        error: function (xhr) {
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        }
+    });
+    esconder();
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-include("connect_data.php");
+include 'connect_data.php';
 
 class ikasleModel extends ikasleClass {
 
@@ -9,6 +9,9 @@ class ikasleModel extends ikasleClass {
 
     function getList() {
         return $this->list;
+    }
+    function getJSONList(){
+        return $this->lista;
     }
 
     public function OpenConnect() {
@@ -31,7 +34,8 @@ class ikasleModel extends ikasleClass {
     public function setList() {
         $this->OpenConnect();
         $sql = "CALL sp_mostrar_ikasleak()";
-        $this->list = array();
+//        $this->list = array();
+        $this->lista = array();
         $result = $this->link->query($sql);
 
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -40,7 +44,7 @@ class ikasleModel extends ikasleClass {
             $new->setNombre($row['Nombre']);
             $new->setEdad($row['Edad']);
             $new->setCurso($row['Curso']);
-            array_push($this->list, $new);
+            array_push($this->lista, $row);
         }
         mysqli_free_result($result);
         $this->CloseConnect();
@@ -91,4 +95,3 @@ class ikasleModel extends ikasleClass {
 //    }
 }
 
-?>

@@ -11,4 +11,3 @@ class Conectar{
         return $link;
     }
 }
-?>

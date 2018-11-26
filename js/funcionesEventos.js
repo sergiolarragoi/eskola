@@ -16,7 +16,7 @@ function funcionKontsultaIkasleak() {
             tabla += "<th class='nombre'>Nombre</th>";
             tabla += "<th class='nombre'>Edad</th>";
             tabla += "<th class='numerico'>Curso</th>";
-            for (i in datos) {
+            for (var i in datos) {
                 tabla += "<tr>";
                 tabla += "<td class='nombre'>" + datos[i].id + "</td>";
                 tabla += "<td class='nombre'>" + datos[i].Nombre + "</td>";
@@ -24,7 +24,6 @@ function funcionKontsultaIkasleak() {
                 tabla += "<td class='numerico'>" + datos[i].Curso + "</td>";
                 tabla += "</tr>";
             }
-            ;
             tabla += "</table>";
 //            alert(tabla);
             $('#zonaConsulta').append(tabla).hide().fadeIn('slow');
@@ -57,5 +56,32 @@ function funcionIkasleBerria() {
         }
     });
     esconder();
+}
+function cargarComboIkasleak() {
+
+    $.ajax({
+        type: 'POST',
+        dstaType: 'json',
+        url: "../controlador/controlador_consulta_ikasleak.php",
+        success: function (datos) {
+
+            datos = JSON.parse(datos);    //lo convertimos a objeto.
+
+            var combo = "<option>Aukeratu ikaslea</option>";
+
+            for (var i in datos) {
+                combo += "<option value='" + datos[i].id + "' data-edad='" + datos[i].Edad + "' data-curso='" + datos[i].Curso + "' data-nombre='" + datos[i].Nombre + "'>" + datos[i].Nombre + "</option>";
+
+            }
+
+            $('#ikasleNombresTodos').append(combo);
+
+        },
+        error: function (xhr) {
+            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        }
+    });
+
+
 }
 
